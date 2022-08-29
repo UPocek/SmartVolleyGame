@@ -13,9 +13,9 @@ public class Energy : MonoBehaviour
     private readonly float maxEnergyLevel = 100f;
     private readonly float energyRegenerationSpeed = 2f;
 
-    private readonly float walkCost = 2f;
-    private readonly float jumpCost = 10f;
-    private readonly float spikeCost = 20f;
+    public float walkCost = 2f;
+    public float jumpCost = 10f;
+    public float spikeCost = 20f;
 
     // Start is called before the first frame update
     void Start()
