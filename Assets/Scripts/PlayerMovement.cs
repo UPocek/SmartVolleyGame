@@ -9,24 +9,30 @@ public class PlayerMovement : MonoBehaviour
     private float verticalInput;
     public float speed;
     public float jumpForce;
+    public bool playerTurn;
     // Start is called before the first frame update
     void Start()
     {
         playerRb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Move();
-        Jump();
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (playerTurn)
+        { 
+            Move();
+            Jump();
+        } 
     }
 
     void Move()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
         transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
         transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime);
     }
