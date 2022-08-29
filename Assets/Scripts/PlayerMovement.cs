@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float jumpForce;
     public bool playerTurn;
+    private bool jumpPressed;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        jumpPressed = Input.GetKeyDown(KeyCode.Space);
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
     }
@@ -33,8 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
-        transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * horizontalInput * speed * Time.deltaTime);
+        transform.Translate(Vector3.right * verticalInput * speed * Time.deltaTime);
 
         if(horizontalInput != 0 || verticalInput != 0)
         {
@@ -44,10 +46,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (jumpPressed)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             GetComponent<Energy>().DecreaseEnergyJump();
+            jumpPressed = false;
         }
     }
 }
