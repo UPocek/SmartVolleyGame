@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
     private Rigidbody ballRb;
+    private float hitPower = 2.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,6 @@ public class BallMovement : MonoBehaviour
 
     void PlayerHit(int direction)
     {
-       ballRb.AddForce(direction * new Vector3(0, 1, 1), ForceMode.Impulse);
+       ballRb.AddForce(new Vector3(0,6, direction * hitPower), ForceMode.Impulse);
     }
 }
