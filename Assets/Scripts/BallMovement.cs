@@ -6,6 +6,7 @@ public class BallMovement : MonoBehaviour
 {
     private Rigidbody ballRb;
     private float hitPower = 2.5f;
+    private float ballBounceness = 6;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,6 @@ public class BallMovement : MonoBehaviour
 
     void PlayerHit(int direction)
     {
-       ballRb.AddForce(new Vector3(0,6, direction * hitPower), ForceMode.Impulse);
+       ballRb.AddForce(new Vector3(0, ballBounceness, direction * hitPower), ForceMode.Impulse);
     }
 }
