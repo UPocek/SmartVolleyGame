@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
         transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime);
+
+        if(horizontalInput != 0 || verticalInput != 0)
+        {
+            GetComponent<Energy>().DecreaseEnergyWalk();
+        }
     }
 
     void Jump()
@@ -36,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            GetComponent<Energy>().DecreaseEnergyJump();
         }
     }
 }
