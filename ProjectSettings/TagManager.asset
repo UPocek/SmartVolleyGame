@@ -7,6 +7,7 @@ TagManager:
   - Player1
   - Player2
   - Gem
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Ball
+  - Wall
   - 
   - 
   - 

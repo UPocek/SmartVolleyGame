@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
+        if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             Destroy(gameObject);
-            collision.gameObject.GetComponent<PlayerPowers>().StartPowerUp(gameObject.name);
+            other.gameObject.GetComponent<PlayerPowers>().StartPowerUp(gameObject.name);
         }
     }
+
 }

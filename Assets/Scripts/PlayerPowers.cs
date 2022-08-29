@@ -27,7 +27,7 @@ public class PlayerPowers : MonoBehaviour
 
     void IncreaseSpike()
     {
-        //GetComponent<PlayerMovement>().spikePower *= 2;
+        GetComponent<BallMovement>().spikePower *= 2;
     }
 
     void IncreaseSpeed()
