@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private GameManager gameManager;
+    private Energy energyBar;
     private Rigidbody playerRb;
     private float horizontalInput;
     private float verticalInput;
     public float speed;
     public float jumpForce;
     public bool playerTurn;
-    private bool jumpPressed;
+    public bool jumpPressed;
+    public bool spikePressed;
+    private bool isOnGround;
     // Start is called before the first frame update
     void Start()
     {
         playerRb = gameObject.GetComponent<Rigidbody>();
+        energyBar = gameObject.GetComponent<Energy>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -22,35 +28,100 @@ public class PlayerMovement : MonoBehaviour
         jumpPressed = Input.GetKeyDown(KeyCode.Space);
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+
+        if (playerTurn)
+        {
+            Move();
+            if (jumpPressed)
+            {
+                Jump();
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Spike();
+            }
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (playerTurn)
-        { 
-            Move();
-            Jump();
-        } 
+       
     }
 
     void Move()
     {
-        transform.Translate(Vector3.forward * horizontalInput * speed * Time.deltaTime);
-        transform.Translate(Vector3.right * verticalInput * speed * Time.deltaTime);
+        if (hasEnergy("walking"))
+        { 
+            transform.Translate(Vector3.forward * horizontalInput * speed * Time.deltaTime);
+            transform.Translate(Vector3.left * verticalInput * speed * Time.deltaTime);
 
-        if(horizontalInput != 0 || verticalInput != 0)
-        {
-            GetComponent<Energy>().DecreaseEnergyWalk();
+            if(horizontalInput != 0 || verticalInput != 0)
+            {
+                GetComponent<Energy>().DecreaseEnergyWalk();
+            }
         }
+        
     }
 
     void Jump()
     {
-        if (jumpPressed)
+        if (hasEnergy("jumping") && isOnGround)
         {
+            isOnGround = false;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             GetComponent<Energy>().DecreaseEnergyJump();
             jumpPressed = false;
+        }
+    }
+
+    void Spike()
+    {
+        if (hasEnergy("spiking") && isOnGround)
+        {
+            isOnGround = false;
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            GetComponent<Energy>().DecreaseEnergySpike();
+            spikePressed = true;
+        }
+    }
+
+    bool hasEnergy(string action)
+    {
+        if (action.Equals("walking"))
+        {
+            if (energyBar.EnergyLevel < energyBar.walkCost)
+            {
+                return false;
+            }
+            return true;
+        }
+        else if (action.Equals("jumping"))
+        {
+            if (energyBar.EnergyLevel < energyBar.jumpCost)
+            {
+                return false;
+            }
+            return true;
+        }
+        else 
+        {
+            if (energyBar.EnergyLevel < energyBar.spikeCost)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+            spikePressed = false;
         }
     }
 }

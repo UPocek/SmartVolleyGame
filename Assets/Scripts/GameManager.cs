@@ -36,4 +36,5 @@ public class GameManager : MonoBehaviour
             player1.GetComponent<PlayerMovement>().playerTurn = false;
         }
     }
+
 }
