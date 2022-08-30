@@ -6,8 +6,8 @@ public class BallMovement : MonoBehaviour
 {
     private Rigidbody ballRb;
     public float hitPower = 2.5f;
-    public float ballBounceness = 6;
-    public float spikePower = 100;
+    public float ballBounceness = 6f;
+    public float spikePower = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,6 @@ public class BallMovement : MonoBehaviour
         if (typeOfHit.Equals("spike"))
         {
             ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower), ForceMode.Impulse);
-            Debug.Log("Spike Done");
         }
         else
         {

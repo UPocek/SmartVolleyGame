@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7522718914470191038}
   - component: {fileID: 7522718914470191037}
   - component: {fileID: 1265780470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,3 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf90677108063e442824fe5fe08d1f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPower: 2.5
+  ballBounceness: 6
+  spikePower: 100

@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Turn Management")]
     private GameObject ball;
     public int playerTurn;
     public GameObject player1;
     public GameObject player2;
+
+    [Space]
+
+    public Text player1Score;
+    public Text player2Score;
     // Start is called before the first frame update
     void Start()
     {

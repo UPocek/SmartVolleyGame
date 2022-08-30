@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool jumpPressed;
     public bool spikePressed;
     private bool isOnGround;
+
     // Start is called before the first frame update
     void Start()
     {

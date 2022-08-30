@@ -4,10 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player1
-  - Player2
+  - Shootable
   - Gem
   - Ground
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - UI
   - Ball
   - Wall
-  - 
-  - 
-  - 
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
   - 
   - 
@@ -42,9 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 2164735595
     locked: 0
