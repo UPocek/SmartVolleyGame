@@ -23,18 +23,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Text player2Score;
 
-    private int playerTouches = 0;
-    private int lastTouchIndex = 1;
+    private int playerTouches;
+    private int lastTouchIndex;
 
     private int player1Index = 1;
     private int player2Index = 2;
 
-    private Vector3 ballPositionForPlayer1Serve = new(0f, 7f, -9f);
-    private Vector3 ballPositionForPlayer2Serve = new(0f, 7f, 9f);
-    private Vector3 player1ServePosition = new(0f, 1f, - 9f);
-    private Vector3 player1RecivePosition = new(0f, 1f, -4.5f);
-    private Vector3 player2ServePosition = new(0f, 1f, 9f);
-    private Vector3 player2RecivePosition = new(0f, 1f, 4.5f);
+    private Vector3 ballPositionForPlayer1Serve = new(0f, 2.5f, -10);
+    private Vector3 ballPositionForPlayer2Serve = new(0f, 2.5f, 10);
+    private Vector3 player1ServePosition = new(0f, 1f, -10f);
+    private Vector3 player1RecivePosition = new(0f, 1f, -5f);
+    private Vector3 player2ServePosition = new(0f, 1f, 10f);
+    private Vector3 player2RecivePosition = new(0f, 1f, 5f);
     private float playerSpeed;
     private float bottomOfGround;
     private float[] groundBounds = new float[2];
@@ -45,9 +45,12 @@ public class GameManager : MonoBehaviour
     {
         ball = GameObject.Find("Ball");
 
-        playerTurn = Random.Range(0, 2);
+        playerTurn = Random.Range(1, 3);
+        lastTouchIndex = playerTurn;
+        playerTouches = 0;
         ResetPlayers(playerTurn);
-        ResetBall(playerTurn);
+        StartCoroutine(ResetBall(playerTurn));
+        
 
         GameObject ground = GameObject.FindGameObjectWithTag("Ground");
         bottomOfGround = ground.transform.position.y;
@@ -167,7 +170,7 @@ public class GameManager : MonoBehaviour
 
         ResetPlayers(indexOfPlayerThatWonThePoint);
 
-        ResetBall(indexOfPlayerThatWonThePoint);
+        StartCoroutine(ResetBall(indexOfPlayerThatWonThePoint));
 
         UnfreezeGame();
     }
@@ -211,14 +214,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ResetBall(int indexOfPlayerThatWonPoint)
+    IEnumerator ResetBall(int indexOfPlayerThatWonPoint)
     {
-        Vector3 ballStartPosition = indexOfPlayerThatWonPoint == player1Index ? ballPositionForPlayer1Serve : ballPositionForPlayer2Serve;
-        ball.transform.SetPositionAndRotation(ballStartPosition, new Quaternion(0, 0, 0, 0));
         ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        ball.transform.position = indexOfPlayerThatWonPoint == player1Index ? ballPositionForPlayer1Serve : ballPositionForPlayer2Serve;
         ball.GetComponent<Rigidbody>().useGravity = false;
 
-        Invoke(nameof(StartBallGravity), 2);
+        yield return new WaitForSeconds(2);
+
+        ball.GetComponent<Rigidbody>().useGravity = true;
+        ball.GetComponent<BallMovement>().Serve(indexOfPlayerThatWonPoint == player1Index ? -1 : 1);
     }
 
     void UnfreezeGame()
@@ -230,10 +235,4 @@ public class GameManager : MonoBehaviour
 
         gameFreezed = false;
     }
-
-    void StartBallGravity()
-    {
-        ball.GetComponent<Rigidbody>().useGravity = true;
-    }
-
 }

@@ -13,7 +13,6 @@ public class BallMovement : MonoBehaviour
     void Start()
     {
         ballRb = gameObject.GetComponent<Rigidbody>();
-        Serve(1);
     }
 
     // Update is called once per frame
@@ -71,9 +70,8 @@ public class BallMovement : MonoBehaviour
         ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower * 400));
     }
 
-    void Serve(int direction)
+    public void Serve(int direction)
     {
-        ballRb.transform.position = new Vector3(0, 2, direction * 10);
         float serveDistance = Random.Range(6.0f, 9.0f);
         ballRb.velocity = new Vector3(0, serveDistance, -direction * 10);
     }
