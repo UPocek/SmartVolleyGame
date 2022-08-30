@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -663,6 +663,11 @@ PrefabInstance:
       propertyPath: energySlider
       value: 
       objectReference: {fileID: 1637646587}
+    - target: {fileID: 4161938554174573781, guid: ac8ca3294780645459ba07761f2480be,
+        type: 3}
+      propertyPath: jumpForce
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 6966813303581689640, guid: ac8ca3294780645459ba07761f2480be,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -845,7 +850,7 @@ PrefabInstance:
     - target: {fileID: 4161938554174573781, guid: ac8ca3294780645459ba07761f2480be,
         type: 3}
       propertyPath: jumpForce
-      value: 300
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 6966813303581689642, guid: ac8ca3294780645459ba07761f2480be,
         type: 3}
@@ -927,6 +932,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1265780470, guid: 954c28c4b7c4e4a1883d28b910eaa047, type: 3}
+      propertyPath: spikePower
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 7522718914470191009, guid: 954c28c4b7c4e4a1883d28b910eaa047,
         type: 3}
       propertyPath: m_RootOrder
