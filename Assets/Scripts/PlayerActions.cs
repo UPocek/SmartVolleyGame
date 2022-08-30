@@ -14,6 +14,8 @@ public class PlayerActions : MonoBehaviour
     public bool jumpPressed;
     public bool spikePressed;
     private bool isOnGround;
+    private float forwardBorder = 11;
+    private float sideBorder = 6.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +51,7 @@ public class PlayerActions : MonoBehaviour
         { 
             transform.Translate(horizontalInput * speed * Time.deltaTime * Vector3.forward);
             transform.Translate(speed * Time.deltaTime * verticalInput * Vector3.left);
-
+            MovementConstraint();
             if(horizontalInput != 0 || verticalInput != 0)
             {
                 GetComponent<Energy>().DecreaseEnergyWalk();
@@ -116,6 +118,25 @@ public class PlayerActions : MonoBehaviour
         {
             isOnGround = true;
             spikePressed = false;
+        }
+    }
+
+    void MovementConstraint()
+    {
+        if (transform.position.z > forwardBorder)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, forwardBorder);
+        } else if (transform.position.z < -forwardBorder)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -forwardBorder);
+        }
+        if (transform.position.x > sideBorder)
+        {
+            transform.position = new Vector3(sideBorder, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x < -sideBorder)
+        {
+            transform.position = new Vector3(-sideBorder, transform.position.y, transform.position.z);
         }
     }
 }

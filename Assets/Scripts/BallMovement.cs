@@ -5,14 +5,15 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
     private Rigidbody ballRb;
-    public float hitPower = 1000f;
-    public float ballBounceness = 4;
-    public float spikePower = 200f;
-
+    private float hitPower = 2f;
+    private float ballBounceness = 4;
+    public float spikePower;
+ 
     // Start is called before the first frame update
     void Start()
     {
         ballRb = gameObject.GetComponent<Rigidbody>();
+        Serve(1);
     }
 
     // Update is called once per frame
@@ -41,10 +42,12 @@ public class BallMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Player1") && other.gameObject.GetComponent<PlayerActions>().spikePressed)
         {
             PlayerHit(1, "spike");
+            other.gameObject.GetComponent<PlayerActions>().spikePressed = false;
         }
         else if (other.gameObject.CompareTag("Player2") && other.gameObject.GetComponent<PlayerActions>().spikePressed)
         {
             PlayerHit(-1, "spike");
+            other.gameObject.GetComponent<PlayerActions>().spikePressed = false;
         }
     }
 
@@ -52,7 +55,7 @@ public class BallMovement : MonoBehaviour
     {
         if (typeOfHit.Equals("spike"))
         {
-            ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower * 300));
+            ballRb.AddForce(new Vector3(0, 50, direction * 25));
             StartCoroutine(BallDown(direction));
         }
         else
@@ -63,7 +66,14 @@ public class BallMovement : MonoBehaviour
 
     IEnumerator BallDown(int direction)
     {
-        yield return new WaitForEndOfFrame();
-        ballRb.AddForce(new Vector3(0, 100, direction * 50));
+        yield return new WaitForSeconds(0.1f);
+        ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower * 400));
+    }
+
+    void Serve(int direction)
+    {
+        ballRb.transform.position = new Vector3(0, 2, direction * 10);
+        float serveDistance = Random.Range(6.0f, 9.0f);
+        ballRb.velocity = new Vector3(0, serveDistance, -direction * 10);
     }
 }
