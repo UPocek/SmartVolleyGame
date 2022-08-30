@@ -5,9 +5,9 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
     private Rigidbody ballRb;
-    public float hitPower = 2.5f;
-    public float ballBounceness = 6;
-    public float spikePower = 100;
+    public float hitPower = 1000f;
+    public float ballBounceness = 4;
+    public float spikePower = 200f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,28 +22,13 @@ public class BallMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player1"))
-        {
-            if (collision.gameObject.GetComponent<PlayerMovement>().spikePressed)
-            {
-                PlayerHit(1, "spike");
-            }
-            else
-            {
-                PlayerHit(1, "basicHit");
-            }
-            
+        if (collision.gameObject.CompareTag("Player1") && !collision.gameObject.GetComponent<PlayerActions>().spikePressed)
+        { 
+            PlayerHit(1, "basicHit");  
         }
-        else if (collision.gameObject.CompareTag("Player2"))
+        else if (collision.gameObject.CompareTag("Player2") && !collision.gameObject.GetComponent<PlayerActions>().spikePressed)
         {
-            if (collision.gameObject.GetComponent<PlayerMovement>().spikePressed)
-            {
-                PlayerHit(-1, "spike");
-            }
-            else
-            {
-                PlayerHit(-1, "basicHit");
-            }
+            PlayerHit(-1, "basicHit");
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
@@ -51,16 +36,36 @@ public class BallMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player1") && other.gameObject.GetComponent<PlayerActions>().spikePressed)
+        {
+            PlayerHit(1, "spike");
+        }
+        else if (other.gameObject.CompareTag("Player2") && other.gameObject.GetComponent<PlayerActions>().spikePressed)
+        {
+            PlayerHit(-1, "spike");
+        }
+    }
+
     void PlayerHit(int direction, string typeOfHit)
     {
         if (typeOfHit.Equals("spike"))
         {
-            ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower), ForceMode.Impulse);
-            Debug.Log("Spike Done");
+            Debug.Log("Spike");
+            ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower * 300));
+            StartCoroutine(BallDown(direction));
         }
         else
         {
+            Debug.Log("Problem");
             ballRb.AddForce(new Vector3(0, ballBounceness, direction * hitPower), ForceMode.Impulse);
         }
+    }
+
+    IEnumerator BallDown(int direction)
+    {
+        yield return new WaitForEndOfFrame();
+        ballRb.AddForce(new Vector3(0, 100, direction * 50));
     }
 }

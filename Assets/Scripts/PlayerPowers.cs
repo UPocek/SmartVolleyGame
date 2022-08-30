@@ -32,6 +32,6 @@ public class PlayerPowers : MonoBehaviour
 
     void IncreaseSpeed()
     {
-        GetComponent<PlayerMovement>().speed *= 2;
+        GetComponent<PlayerActions>().speed *= 2;
     }
 }

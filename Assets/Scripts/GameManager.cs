@@ -26,14 +26,14 @@ public class GameManager : MonoBehaviour
         if (ball.transform.position.z < 0)
         {
             playerTurn = 1;
-            player1.GetComponent<PlayerMovement>().playerTurn = true;
-            player2.GetComponent<PlayerMovement>().playerTurn = false;
+            player1.GetComponent<PlayerActions>().playerTurn = true;
+            player2.GetComponent<PlayerActions>().playerTurn = false;
         }
         else
         {
             playerTurn = 2;
-            player2.GetComponent<PlayerMovement>().playerTurn = true;
-            player1.GetComponent<PlayerMovement>().playerTurn = false;
+            player2.GetComponent<PlayerActions>().playerTurn = true;
+            player1.GetComponent<PlayerActions>().playerTurn = false;
         }
     }
 
