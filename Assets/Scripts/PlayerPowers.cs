@@ -36,7 +36,7 @@ public class PlayerPowers : MonoBehaviour
 
     void IncreaseSpeed()
     {
-        GetComponent<PlayerMovement>().speed *= 1.5f;
+        GetComponent<PlayerActions>().speed *= 1.5f;
         StartCoroutine(DecreaseSpeed());
     }
 
@@ -49,6 +49,6 @@ public class PlayerPowers : MonoBehaviour
     IEnumerator DecreaseSpeed()
     {
         yield return new WaitForSeconds(powerUpDuration);
-        GetComponent<PlayerMovement>().speed /= 1.5f;
+        GetComponent<PlayerActions>().speed /= 1.5f;
     }
 }

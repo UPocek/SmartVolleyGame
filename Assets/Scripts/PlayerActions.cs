@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerActions : MonoBehaviour
 {
     private Energy energyBar;
     private Rigidbody playerRb;
