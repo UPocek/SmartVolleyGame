@@ -32,7 +32,7 @@ public class BallMovement : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
-          
+            GameObject.Find("GameManager").GetComponent<GameManager>().GroundContact(transform.position);
         }
     }
 
@@ -50,6 +50,7 @@ public class BallMovement : MonoBehaviour
 
     void PlayerHit(int direction, string typeOfHit)
     {
+        GameObject.Find("GameManager").GetComponent<GameManager>().Touch(direction);
         if (typeOfHit.Equals("spike"))
         {
             ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower * 300));

@@ -47,5 +47,6 @@ MonoBehaviour:
   playerTurn: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
+  timeBetweenPoints: 3
   player1Score: {fileID: 0}
   player2Score: {fileID: 0}
