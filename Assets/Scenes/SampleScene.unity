@@ -847,25 +847,10 @@ PrefabInstance:
       propertyPath: energySlider
       value: 
       objectReference: {fileID: 1659678332}
-    - target: {fileID: 4161938554174573781, guid: ac8ca3294780645459ba07761f2480be,
-        type: 3}
-      propertyPath: jumpForce
-      value: 350
-      objectReference: {fileID: 0}
     - target: {fileID: 6966813303581689642, guid: ac8ca3294780645459ba07761f2480be,
         type: 3}
       propertyPath: m_Name
       value: Player1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6966813303581689643, guid: ac8ca3294780645459ba07761f2480be,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6966813303581689644, guid: ac8ca3294780645459ba07761f2480be,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 6966813303581689646, guid: ac8ca3294780645459ba07761f2480be,
         type: 3}
@@ -922,8 +907,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6966813303581689647, guid: ac8ca3294780645459ba07761f2480be, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac8ca3294780645459ba07761f2480be, type: 3}
 --- !u!1001 &7522718913995266768
 PrefabInstance:

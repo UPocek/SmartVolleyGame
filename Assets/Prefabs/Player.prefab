@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  jumpForce: 300
+  jumpForce: 350
   playerTurn: 0
   jumpPressed: 0
   spikePressed: 0
