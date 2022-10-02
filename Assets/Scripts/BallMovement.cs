@@ -1,13 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
+    [SerializeField]
+    private GameManager gameManager;
+    [SerializeField]
+    private GameObject player1;
+    [SerializeField]
+    private GameObject player2;
+
     private Rigidbody ballRb;
-    private float hitPower = 2f;
-    private float ballBounceness = 4;
-    public float spikePower;
+
+    [HideInInspector]
+    public float spikePower = 400f;
+    private float hitPower = 2.5f;
+    private float ballBounceness = 4f;
+    private float spikeArcY = 60f;
  
     // Start is called before the first frame update
     void Start()
@@ -15,64 +24,65 @@ public class BallMovement : MonoBehaviour
         ballRb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player1") && !collision.gameObject.GetComponent<PlayerActions>().spikePressed)
+        if (collision.gameObject.CompareTag("Player1") && !collision.gameObject.GetComponent<VolleyAIv1>().spikePressed)
         { 
             PlayerHit(1, "basicHit");  
         }
-        else if (collision.gameObject.CompareTag("Player2") && !collision.gameObject.GetComponent<PlayerActions>().spikePressed)
+        else if (collision.gameObject.CompareTag("Player2") && !collision.gameObject.GetComponent<VolleyAIv1>().spikePressed)
         {
             PlayerHit(-1, "basicHit");
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().GroundContact(transform.position);
+            gameManager.GroundContact(transform.localPosition);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player1") && other.gameObject.GetComponent<PlayerActions>().spikePressed)
+        if (other.gameObject.CompareTag("Player1") && other.gameObject.GetComponent<VolleyAIv1>().spikePressed)
         {
             PlayerHit(1, "spike");
-            other.gameObject.GetComponent<PlayerActions>().spikePressed = false;
+            other.gameObject.GetComponent<VolleyAIv1>().spikePressed = false;
         }
-        else if (other.gameObject.CompareTag("Player2") && other.gameObject.GetComponent<PlayerActions>().spikePressed)
+        else if (other.gameObject.CompareTag("Player2") && other.gameObject.GetComponent<VolleyAIv1>().spikePressed)
         {
             PlayerHit(-1, "spike");
-            other.gameObject.GetComponent<PlayerActions>().spikePressed = false;
+            other.gameObject.GetComponent<VolleyAIv1>().spikePressed = false;
         }
     }
 
     void PlayerHit(int direction, string typeOfHit)
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().Touch(direction);
+        gameManager.Touch(direction);
+
         if (typeOfHit.Equals("spike"))
         {
-            ballRb.AddForce(new Vector3(0, 50, direction * 25));
-            StartCoroutine(BallDown(direction));
+            ballRb.AddForce(new Vector3(GetBallRandomXOffset(), spikeArcY, direction * spikePower));
+            StartCoroutine(BallDownForce(direction));
         }
         else
         {
-            ballRb.AddForce(new Vector3(0, ballBounceness, direction * hitPower), ForceMode.Impulse);
+            float playerInconsistencyY = Random.Range(1f, 1.1f);
+            float playerInconsistencyZ = Random.Range(1f, 1.25f);
+            ballRb.AddForce(new Vector3(GetBallRandomXOffset(), ballBounceness * playerInconsistencyY, direction * hitPower * playerInconsistencyZ), ForceMode.Impulse);
         }
     }
 
-    IEnumerator BallDown(int direction)
+    IEnumerator BallDownForce(int direction)
     {
         yield return new WaitForSeconds(0.1f);
-        ballRb.AddForce(new Vector3(0, -spikePower, direction * hitPower * 400));
+        ballRb.AddForce(new Vector3(0, -spikeArcY * 11, direction));
     }
 
-    public void Serve(int direction)
+    float GetBallRandomXOffset()
     {
-        float serveDistance = Random.Range(6.0f, 9.0f);
-        ballRb.velocity = new Vector3(0, serveDistance, -direction * 10);
+        float ballMovementX = Random.Range(0f, 0f);
+
+        float ballCurrentXTrajectory = (transform.localPosition.x + 0.1f) / Mathf.Abs(transform.localPosition.x + 0.1f);
+
+        return ballMovementX * -ballCurrentXTrajectory;
     }
 }

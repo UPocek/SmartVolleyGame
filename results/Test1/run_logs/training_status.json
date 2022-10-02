@@ -1,0 +1,38 @@
+{
+    "VolleyAIv1": {
+        "checkpoints": [
+            {
+                "steps": 499998,
+                "file_path": "results/Test1/VolleyAIv1/VolleyAIv1-499998.onnx",
+                "reward": -0.57272729127094,
+                "creation_time": 1662052657.7530408,
+                "auxillary_file_paths": [
+                    "results/Test1/VolleyAIv1/VolleyAIv1-499998.pt"
+                ]
+            },
+            {
+                "steps": 500054,
+                "file_path": "results/Test1/VolleyAIv1/VolleyAIv1-500054.onnx",
+                "reward": -0.5780000185966492,
+                "creation_time": 1662052657.784213,
+                "auxillary_file_paths": [
+                    "results/Test1/VolleyAIv1/VolleyAIv1-500054.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500054,
+            "file_path": "results/Test1/VolleyAIv1.onnx",
+            "reward": -0.5780000185966492,
+            "creation_time": 1662052657.784213,
+            "auxillary_file_paths": [
+                "results/Test1/VolleyAIv1/VolleyAIv1-500054.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1"
+    }
+}

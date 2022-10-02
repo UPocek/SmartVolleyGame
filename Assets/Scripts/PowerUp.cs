@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject explosion;
     
@@ -12,7 +10,7 @@ public class PowerUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
-            GameObject activeExplosion = Instantiate(explosion, transform.position, transform.rotation);
+            GameObject activeExplosion = Instantiate(explosion, transform.localPosition, transform.rotation);
             gameObject.GetComponent<MeshRenderer>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
             other.gameObject.GetComponent<PlayerPowers>().StartPowerUp(gameObject.name);

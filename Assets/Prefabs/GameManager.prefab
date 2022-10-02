@@ -44,9 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945c7de5a2973bc418424ada81b12a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTurn: 0
+  ball: {fileID: 0}
+  ground: {fileID: 0}
+  powerUpSpawner: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
-  timeBetweenPoints: 3
+  timeBetweenPoints: 1
   player1Score: {fileID: 0}
   player2Score: {fileID: 0}
+  playerTouches: 0
+  lastTouchIndex: 0
