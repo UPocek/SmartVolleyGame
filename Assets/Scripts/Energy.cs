@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Energy : MonoBehaviour
 {
-
-    public float EnergyLevel;
+    public float energyLevel;
 
     [SerializeField]
     private Slider energySlider;
-    private readonly float maxEnergyLevel = 100f;
+    [HideInInspector]
+    public readonly float maxEnergyLevel = 100f;
+
     private readonly float energyRegenerationSpeed = 2f;
 
     public float walkCost = 2f;
@@ -21,30 +20,30 @@ public class Energy : MonoBehaviour
     void Start()
     {
         energySlider.maxValue = maxEnergyLevel;
-        energySlider.value = EnergyLevel;
+        energySlider.value = energyLevel;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        EnergyLevel += Time.deltaTime * energyRegenerationSpeed;
-        EnergyLevel = Mathf.Min(EnergyLevel, maxEnergyLevel);
+        energyLevel += energyRegenerationSpeed * Time.deltaTime;
+        energyLevel = Mathf.Min(energyLevel, maxEnergyLevel);
 
-        energySlider.value = EnergyLevel;
+        energySlider.value = energyLevel;
     }
 
     public void DecreaseEnergyWalk()
     {
-        EnergyLevel -= walkCost * Time.deltaTime;
+        energyLevel -= walkCost * Time.deltaTime;
     }
 
     public void DecreaseEnergyJump()
     {
-        EnergyLevel -= jumpCost;
+        energyLevel -= jumpCost;
     }
 
     public void DecreaseEnergySpike()
     {
-        EnergyLevel -= spikeCost;
+        energyLevel -= spikeCost;
     }
 }

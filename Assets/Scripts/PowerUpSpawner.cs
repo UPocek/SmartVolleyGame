@@ -17,27 +17,27 @@ public class PowerUpSpawner : MonoBehaviour
         InvokeRepeating(nameof(SpawnPowerUps), repeatFactor, repeatFactor);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void SpawnPowerUps()
     {
+        GameObject[] activeExplosions = GameObject.FindGameObjectsWithTag("Explosion");
+        foreach (GameObject explosion in activeExplosions)
+        {
+            Destroy(explosion);
+        }
+
         GameObject[] activeGems = GameObject.FindGameObjectsWithTag("Gem");
         foreach(GameObject gem in activeGems)
         {
             Destroy(gem);
         }
 
-        float x = Random.Range(-4.5f, 4.5f);
-        float y = 2.2f;
-        float z = Random.Range(-9.0f, -2.0f);
+        float spawnX = Random.Range(-4.5f, 4.5f);
+        float spawnY = 1.5f;
+        float spawnZ = Random.Range(-9.0f, -2.0f);
         int whichOne = Random.Range(0, powerUps.Length);
 
-        Instantiate(powerUps[whichOne], new Vector3(x, y, z), powerUps[whichOne].transform.rotation);
-        Instantiate(powerUps[whichOne], new Vector3(-x, y, -z), powerUps[whichOne].transform.rotation);
+        Instantiate(powerUps[whichOne], new Vector3(spawnX, spawnY, spawnZ), powerUps[whichOne].transform.rotation);
+        Instantiate(powerUps[whichOne], new Vector3(-spawnX, spawnY, -spawnZ), powerUps[whichOne].transform.rotation);
 
     }
 }
