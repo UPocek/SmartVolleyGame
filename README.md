@@ -1,7 +1,7 @@
 <h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://github.com/UPocek/SmartVolleyGame/blob/main/docs/game02.png">
-    <img alt="Flutter" src="https://github.com/UPocek/NatureInspiredAlgorithms/blob/main/documentation/NIA.png">
+    <img alt="SmartVolleyGame" src="https://github.com/UPocek/SmartVolleyGame/blob/main/docs/game02.png">
   </picture>
 </h1>
 
